@@ -7,13 +7,33 @@
 
 #include "stopwatch.h"
 #include "../EHAL/7-Segment/seven_segment.h"
+#include <util/delay.h>
 
-#define DELAY 3
+#define DELAY 25
 extern uint8 volatile interruptMilliSecondFlag;
 uint8 volatile millisecondsCount=0;
 uint8 volatile secondsCount=0;
 uint8 volatile minutesCount=0;
 uint8 volatile hoursCount=0;
+
+
+
+static void sevenSegmentOnesNum(uint8 num);
+static void sevenSegmentTensNum(uint8 num);
+
+
+void stopWatchStart(void)
+{
+	sevenSegmentMilliSecondsDisplay();
+	sevenSegmentSecondsDisplay();
+	sevenSegmentMinutsDisplay();
+	sevenSegmentHoursDisplay();
+}
+
+
+
+
+
 
 EN_StopWatch_Error_t sevenSegmentMilliSecondsDisplay(void)
 {
@@ -35,12 +55,11 @@ EN_StopWatch_Error_t sevenSegmentMilliSecondsDisplay(void)
 	}
 
 	//Display The seconds on 7segment
-
-	PORTA = (PORTA & 0xF0) | (D1_EN);
+    sevenSegmenD1_EN();
 	sevenSegmentOnesNum(millisecondsCount);
 	_delay_ms(DELAY);
 
-	PORTA = (PORTA & 0xF0) | (D2_EN);
+    sevenSegmenD2_EN();
 	sevenSegmentTensNum(millisecondsCount);
 	_delay_ms(DELAY);
 
@@ -57,11 +76,11 @@ EN_StopWatch_Error_t sevenSegmentSecondsDisplay(void)
 
 	//Display The seconds on 7segment
 
-	PORTA = (PORTA & 0xF0) | (D3_EN);
+	sevenSegmenD3_EN();
 	sevenSegmentOnesNum(secondsCount);
 	_delay_ms(DELAY);
 
-	PORTA = (PORTA & 0xF0) | (D4_EN);
+	sevenSegmenD4_EN();
 	sevenSegmentTensNum(secondsCount);
 	_delay_ms(DELAY);
 
@@ -81,11 +100,11 @@ EN_StopWatch_Error_t sevenSegmentMinutsDisplay(void)
 
 	//Display The seconds on 7segment
 
-	PORTA = (PORTA & 0xF0) | (D1_EN);
+	sevenSegmenD5_EN();
 	sevenSegmentOnesNum(minutesCount);
 	_delay_ms(DELAY);
 
-	PORTA = (PORTA & 0xF0) | (D2_EN);
+	sevenSegmenD6_EN();
 	sevenSegmentTensNum(minutesCount);
 	_delay_ms(DELAY);
 
@@ -102,11 +121,11 @@ EN_StopWatch_Error_t sevenSegmentHoursDisplay(void)
 
 	//Display The seconds on 7segment
 
-	PORTA = (PORTA & 0xF0) | (D3_EN);
+	sevenSegmenD7_EN();
 	sevenSegmentOnesNum(hoursCount);
 	_delay_ms(DELAY);
 
-	PORTA = (PORTA & 0xF0) | (D4_EN);
+	sevenSegmenD8_EN();
 	sevenSegmentTensNum(hoursCount);
 	_delay_ms(DELAY);
 
@@ -120,34 +139,34 @@ void sevenSegmentOnesNum(uint8 num)
 	switch((num % 10))
 	{
 	case 0:
-		PORTC = (PORTC & 0x00) | (ZERO);
+		sevenSegmenDisplay(ZERO);
 		break;
 	case 1:
-		PORTC = (PORTC & 0x00) | (ONE);
+		sevenSegmenDisplay(ONE);
 		break;
 	case 2:
-		PORTC = (PORTC & 0x00) | (TWO);
+		sevenSegmenDisplay(TWO);
 		break;
 	case 3:
-		PORTC = (PORTC & 0x00) | (THREE);
+		sevenSegmenDisplay(THREE);
 		break;
 	case 4:
-		PORTC = (PORTC & 0x00) | (FOUR);
+		sevenSegmenDisplay(FOUR);
 		break;
 	case 5:
-		PORTC = (PORTC & 0x00) | (FIVE);
+		sevenSegmenDisplay(FIVE);
 		break;
 	case 6:
-		PORTC = (PORTC & 0x00) | (SIX);
+		sevenSegmenDisplay(SIX);
 		break;
 	case 7:
-		PORTC = (PORTC & 0x00) | (SEVEN);
+		sevenSegmenDisplay(SEVEN);
 		break;
 	case 8:
-		PORTC = (PORTC & 0x00) | (EIGHT);
+		sevenSegmenDisplay(EIGHT);
 		break;
 	case 9:
-		PORTC = (PORTC & 0x00) | (NINE);
+		sevenSegmenDisplay(NINE);
 		break;
 	}
 
@@ -159,34 +178,34 @@ void sevenSegmentTensNum(uint8 num)
 	switch((num / 10))
 	{
 	case 0:
-		PORTC = (PORTC & 0x00) | (ZERO);
+		sevenSegmenDisplay(ZERO);
 		break;
 	case 1:
-		PORTC = (PORTC & 0x00) | (ONE);
+		sevenSegmenDisplay(ONE);
 		break;
 	case 2:
-		PORTC = (PORTC & 0x00) | (TWO);
+		sevenSegmenDisplay(TWO);
 		break;
 	case 3:
-		PORTC = (PORTC & 0x00) | (THREE);
+		sevenSegmenDisplay(THREE);
 		break;
 	case 4:
-		PORTC = (PORTC & 0x00) | (FOUR);
+		sevenSegmenDisplay(FOUR);
 		break;
 	case 5:
-		PORTC = (PORTC & 0x00) | (FIVE);
+		sevenSegmenDisplay(FIVE);
 		break;
 	case 6:
-		PORTC = (PORTC & 0x00) | (SIX);
+		sevenSegmenDisplay(SIX);
 		break;
 	case 7:
-		PORTC = (PORTC & 0x00) | (SEVEN);
+		sevenSegmenDisplay(SEVEN);
 		break;
 	case 8:
-		PORTC = (PORTC & 0x00) | (EIGHT);
+		sevenSegmenDisplay(EIGHT);
 		break;
 	case 9:
-		PORTC = (PORTC & 0x00) | (NINE);
+		sevenSegmenDisplay(NINE);
 		break;
 	}
 }

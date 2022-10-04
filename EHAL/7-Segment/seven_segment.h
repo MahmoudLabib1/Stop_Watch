@@ -19,7 +19,7 @@
 
 #define HARDWARE_BCD           DISABLE
 
-#define DP_EN                  ENABLE
+#define DP_EN                  DISABLE
 
 
 // Display Number In Config COMMON_CATHODE mode
