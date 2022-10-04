@@ -25,8 +25,8 @@
 /* Enable The Timer's required */
 /* NOTE : Timer0 and Timer1 share the same PreScaler Module */
 #define TIMER0_Enable                            ENABLE
-#define TIMER1_Enable                            ENABLE
-#define TIMER2_Enable                            ENABLE
+#define TIMER1_Enable                            DISABLE
+#define TIMER2_Enable                            DISABLE
 
 
 /* After you Enabled required Timer's
@@ -54,7 +54,7 @@
  * --> [TIMER0_Mode_FastPwm_msk]
  *
  */
-#define TIMER0_Mode_Selector                 TIMER0_Mode_Ovf_msk
+#define TIMER0_Mode_Selector                 TIMER0_Mode_Ctc_msk
 
 /*------------------                                         ------------------*
  *-------------                                                   -------------*
@@ -117,7 +117,7 @@
  * --> [TIMER0_External_Clk_With_Rising_Edge_msk]
  *
  */
-#define TIMER0_PreScaler_Selector                 TIMER0_Clk_With_1024_PreScaler_msk
+#define TIMER0_PreScaler_Selector                 TIMER0_Clk_With_64_PreScaler_msk
 
 
 /*------------------                                         ------------------*
@@ -141,8 +141,8 @@
  * --> [TIMER0_COMP_INT_EN]
  *
  */
-#define TIMER0_OVF_INT_EN               ENABLE
-#define TIMER0_COMP_INT_EN              DISABLE
+#define TIMER0_OVF_INT_EN               DISABLE
+#define TIMER0_COMP_INT_EN              ENABLE
 
 
 /*------------------                                         ------------------*
@@ -160,7 +160,7 @@
  */
 
 #define TIMER0_Initial_Value                        0
-#define TIMER0_Compare_Value                        0
+#define TIMER0_Compare_Value                        250
 
 
 /*------------------------------------------------------------------------------

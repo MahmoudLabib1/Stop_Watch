@@ -58,4 +58,7 @@
  */
 #define ROL(REG,BIT)             (REG=(REG<<BIT) | (REG>>(8-BIT)))
 
+
+#define GET_BIT(REG,BIT)         (REG >> BIT) & 0x01
+
 #endif /* SRC_UTILS_COMMON_MACROS_H_ */

@@ -31,10 +31,8 @@
 static volatile void(*g_Ptr_To_Fun_TIMER_0)(void)= NULL;
 static volatile void(*g_Ptr_To_Fun_TIMER_1)(void)= NULL;
 static volatile void(*g_Ptr_To_Fun_TIMER_2)(void)= NULL;
-uint8 volatile LED_Flag=FALSE;
-uint8 volatile ledCount;
-uint8 volatile ledPedstrianFlag=FALSE;
-uint8 volatile ledPedstrianCount;
+uint8 volatile interruptMilliSecondFlag=FALSE;
+
 /*******************************************************************************
  *                                 TIMER0_ISR
  *******************************************************************************/
@@ -44,15 +42,6 @@ uint8 volatile ledPedstrianCount;
  */
 
 ISR(TIMER0_OVF_vect){
-
-	if(LED_Flag == TRUE){
-		ledCount++;
-		if(ledCount == 20){
-			LED_Flag=FALSE;
-			ledCount=0;
-		}
-	}
-
 	/* Call the Call Back function in the application after the Event is Occur */
 
 	if(g_Ptr_To_Fun_TIMER_0 != NULL){
@@ -60,10 +49,12 @@ ISR(TIMER0_OVF_vect){
 		/* another method to call the function using pointer to function g_Ptr_To_Fun_0(); */
 		(*g_Ptr_To_Fun_TIMER_0)();
 	}
-
 }
 
 ISR(TIMER0_COMP_vect){
+
+	interruptMilliSecondFlag = TRUE;
+
 	if(g_Ptr_To_Fun_TIMER_0 != NULL){
 		(*g_Ptr_To_Fun_TIMER_0)();
 	}
@@ -72,13 +63,6 @@ ISR(TIMER0_COMP_vect){
  *                                 TIMER2_ISR
  *******************************************************************************/
 ISR(TIMER2_OVF_vect){
-	if(ledPedstrianFlag == TRUE){
-		ledPedstrianCount++;
-			if(ledPedstrianCount == 20){
-				ledPedstrianFlag=FALSE;
-				ledPedstrianFlag=0;
-			}
-		}
 	if(g_Ptr_To_Fun_TIMER_2 != NULL){
 		(*g_Ptr_To_Fun_TIMER_2)();
 	}
