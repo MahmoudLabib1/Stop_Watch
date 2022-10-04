@@ -5,4 +5,6 @@
  *      Author: Mahmoud Labib
  */
 
+#include "seven_segment.h"
+#include "../../utils/common_macros.h"
 
