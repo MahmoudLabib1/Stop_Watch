@@ -17,7 +17,7 @@
 #define COMMON_CATHODE         DISABLE
 #define COMMON_ANODE           ENABLE
 
-#define HARDWARE_BCD           DISABLE
+#define HARDWARE_BCD           ENABLE
 
 #define DP_EN                  DISABLE
 

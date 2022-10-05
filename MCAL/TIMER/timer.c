@@ -42,6 +42,7 @@ uint8 volatile interruptMilliSecondFlag=FALSE;
  */
 
 ISR(TIMER0_OVF_vect){
+	interruptMilliSecondFlag = TRUE;
 	/* Call the Call Back function in the application after the Event is Occur */
 
 	if(g_Ptr_To_Fun_TIMER_0 != NULL){
@@ -52,8 +53,6 @@ ISR(TIMER0_OVF_vect){
 }
 
 ISR(TIMER0_COMP_vect){
-
-	interruptMilliSecondFlag = TRUE;
 
 	if(g_Ptr_To_Fun_TIMER_0 != NULL){
 		(*g_Ptr_To_Fun_TIMER_0)();

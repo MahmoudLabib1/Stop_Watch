@@ -9,8 +9,9 @@
 #include "../EHAL/7-Segment/seven_segment.h"
 #include <util/delay.h>
 
-#define DELAY 25
+#define DELAY 2
 extern uint8 volatile interruptMilliSecondFlag;
+uint8 millicounter=0;
 uint8 volatile millisecondsCount=0;
 uint8 volatile secondsCount=0;
 uint8 volatile minutesCount=0;
@@ -43,24 +44,26 @@ EN_StopWatch_Error_t sevenSegmentMilliSecondsDisplay(void)
 		interruptMilliSecondFlag=FALSE;
 		//Flag true mean that timer count 1sec
 		millisecondsCount++;
-		if(millisecondsCount == 60)
+		if(millisecondsCount == 55 )
 		{
 			secondsCount++;
 			millisecondsCount=0;
 		}
-		if(millisecondsCount > 60)
+		if(millisecondsCount > 55)
 		{
 			return STOP_WATCH_ERROR;
 		}
 	}
 
 	//Display The seconds on 7segment
-    sevenSegmenD1_EN();
+
 	sevenSegmentOnesNum(millisecondsCount);
+	sevenSegmenD1_EN();
 	_delay_ms(DELAY);
 
-    sevenSegmenD2_EN();
+
 	sevenSegmentTensNum(millisecondsCount);
+	sevenSegmenD2_EN();
 	_delay_ms(DELAY);
 
 	return STOP_WATCH_DONE;
@@ -76,12 +79,14 @@ EN_StopWatch_Error_t sevenSegmentSecondsDisplay(void)
 
 	//Display The seconds on 7segment
 
-	sevenSegmenD3_EN();
+
 	sevenSegmentOnesNum(secondsCount);
+	sevenSegmenD3_EN();
 	_delay_ms(DELAY);
 
-	sevenSegmenD4_EN();
+
 	sevenSegmentTensNum(secondsCount);
+	sevenSegmenD4_EN();
 	_delay_ms(DELAY);
 
 	return STOP_WATCH_DONE;
@@ -139,34 +144,34 @@ void sevenSegmentOnesNum(uint8 num)
 	switch((num % 10))
 	{
 	case 0:
-		sevenSegmenDisplay(ZERO);
+		sevenSegmenDisplay(0);
 		break;
 	case 1:
-		sevenSegmenDisplay(ONE);
+		sevenSegmenDisplay(1);
 		break;
 	case 2:
-		sevenSegmenDisplay(TWO);
+		sevenSegmenDisplay(2);
 		break;
 	case 3:
-		sevenSegmenDisplay(THREE);
+		sevenSegmenDisplay(3);
 		break;
 	case 4:
-		sevenSegmenDisplay(FOUR);
+		sevenSegmenDisplay(4);
 		break;
 	case 5:
-		sevenSegmenDisplay(FIVE);
+		sevenSegmenDisplay(5);
 		break;
 	case 6:
-		sevenSegmenDisplay(SIX);
+		sevenSegmenDisplay(6);
 		break;
 	case 7:
-		sevenSegmenDisplay(SEVEN);
+		sevenSegmenDisplay(7);
 		break;
 	case 8:
-		sevenSegmenDisplay(EIGHT);
+		sevenSegmenDisplay(8);
 		break;
 	case 9:
-		sevenSegmenDisplay(NINE);
+		sevenSegmenDisplay(9);
 		break;
 	}
 
@@ -178,34 +183,34 @@ void sevenSegmentTensNum(uint8 num)
 	switch((num / 10))
 	{
 	case 0:
-		sevenSegmenDisplay(ZERO);
+		sevenSegmenDisplay(0);
 		break;
 	case 1:
-		sevenSegmenDisplay(ONE);
+		sevenSegmenDisplay(1);
 		break;
 	case 2:
-		sevenSegmenDisplay(TWO);
+		sevenSegmenDisplay(2);
 		break;
 	case 3:
-		sevenSegmenDisplay(THREE);
+		sevenSegmenDisplay(3);
 		break;
 	case 4:
-		sevenSegmenDisplay(FOUR);
+		sevenSegmenDisplay(4);
 		break;
 	case 5:
-		sevenSegmenDisplay(FIVE);
+		sevenSegmenDisplay(5);
 		break;
 	case 6:
-		sevenSegmenDisplay(SIX);
+		sevenSegmenDisplay(6);
 		break;
 	case 7:
-		sevenSegmenDisplay(SEVEN);
+		sevenSegmenDisplay(7);
 		break;
 	case 8:
-		sevenSegmenDisplay(EIGHT);
+		sevenSegmenDisplay(8);
 		break;
 	case 9:
-		sevenSegmenDisplay(NINE);
+		sevenSegmenDisplay(9);
 		break;
 	}
 }
