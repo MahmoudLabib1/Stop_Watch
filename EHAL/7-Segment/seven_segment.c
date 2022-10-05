@@ -173,5 +173,3 @@ void sevenSegmenD8_EN(void)
 	GPIO_WritePort(PORTA_ID, D8_EN);
 }
 
-
-

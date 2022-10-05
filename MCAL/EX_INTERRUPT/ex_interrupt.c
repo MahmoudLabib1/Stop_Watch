@@ -27,7 +27,8 @@
 static volatile void(*g_Ptr_To_Fun_INT0)(void)=NULL;
 static volatile void(*g_Ptr_To_Fun_INT1)(void)=NULL;
 static volatile void(*g_Ptr_To_Fun_INT2)(void)=NULL;
-uint8 volatile buttonFlag=FALSE;
+uint8 volatile pauseFlag=FALSE;
+uint8 volatile continuFlag=FALSE;
 /*******************************************************************************
  *                                 INT0_ISR
  *******************************************************************************/
@@ -36,9 +37,7 @@ uint8 volatile buttonFlag=FALSE;
  */
 
 ISR(INT0_vect){
-
-	buttonFlag = TRUE;
-
+	pauseFlag = TRUE;
 	if(g_Ptr_To_Fun_INT0 != NULL){
 		(*g_Ptr_To_Fun_INT0)();
 	}
@@ -63,6 +62,7 @@ ISR(INT1_vect){
  */
 
 ISR(INT2_vect){
+	continuFlag=TRUE;
 	if(g_Ptr_To_Fun_INT2 != NULL){
 		(*g_Ptr_To_Fun_INT2)();
 	}

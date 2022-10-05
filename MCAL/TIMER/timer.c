@@ -721,11 +721,14 @@ void TIMER2_SetCallBack(void (*Ptr_To_fun)(void)){
 void TIMER_Deinit(void){
 
 	/* TIMER0 De-init */
+#if TIMER0_Enable == ENABLE
 	TCCR0 = 0;
+#elif TIMER2_Enable == ENABLE
 	/* TIMER2 De-init */
 	TCCR2 = 0;
-
+#elif TIMER1_Enable == ENABLE
 	/* TIMER1 De-init */
 	TCCR1A = 0;
 	TCCR1B = 0;
+#endif
 }

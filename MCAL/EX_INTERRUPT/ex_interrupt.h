@@ -28,7 +28,7 @@
  */
 #define EX_INT0          ENABLE
 #define EX_INT1          DISABLE
-#define EX_INT2          DISABLE
+#define EX_INT2          ENABLE
 
 /*[Description]: Choose the external Interrupt0 trigger sense
  *[INT0_Sense_Types]:
@@ -66,7 +66,7 @@
  *[  Example  ]: INT2_Sense_Selector   INT2_Sense_Falling_Edge_Mask
  *
  */
-#define INT2_Sense_Selector        INT2_Sense_Falling_Edge_Mask
+#define INT2_Sense_Selector        INT2_Sense_Rising_Edge_Mask
 /*******************************************************************************
  *                         FUNCTIONS AND DECLARATIONS
  *******************************************************************************/
