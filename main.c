@@ -18,7 +18,6 @@ void pauseButton(void)
 		_delay_ms(30);
 		if(pauseFlag == TRUE )
 		{
-
 			TIMER_Deinit();
 			/*pressCount++;*/
 			pauseFlag=FALSE;
@@ -44,10 +43,10 @@ void continuButton(void)
 int main()
 {
 	sevenSegmentInit();
-	Ex_INT_Init();
 	TIMER_Init();
 	Ex_INT0_SetCallBack(&pauseButton);
 	Ex_INT2_SetCallBack(&continuButton);
+	Ex_INT_Init();
 	sei();
 
 	while(1){

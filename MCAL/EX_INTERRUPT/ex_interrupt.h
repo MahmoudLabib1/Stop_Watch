@@ -55,7 +55,7 @@
  *[  Example  ]: INT1_Sense_Selector   INT1_Sense_Low_Level_Mask
  *
  */
-#define INT1_Sense_Selector        INT1_Sense_Rising_Edge_Mask
+#define INT1_Sense_Selector        INT1_Sense_Falling_Edge_Mask
 
 /*[Description]: Choose the external Interrupt2 trigger sense
  *[INT2_Sense_Types]:
@@ -66,7 +66,7 @@
  *[  Example  ]: INT2_Sense_Selector   INT2_Sense_Falling_Edge_Mask
  *
  */
-#define INT2_Sense_Selector        INT2_Sense_Rising_Edge_Mask
+#define INT2_Sense_Selector        INT2_Sense_Falling_Edge_Mask
 /*******************************************************************************
  *                         FUNCTIONS AND DECLARATIONS
  *******************************************************************************/
