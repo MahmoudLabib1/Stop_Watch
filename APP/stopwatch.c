@@ -1,28 +1,48 @@
-/*
- * stopwatch.c
- *
- *  Created on: Oct 4, 2022
- *      Author: Mahmoud Labib
- */
+/*******************************************************************************
+* [FILE NAME]:    stopwatch.c
+*
+* [DATE CREATED]: Oct 22, 2022
+*
+* [DISCRIPTION]:  Source file for implementing the StopWatch Functionality.
+*
+* [AUTHOR(S)]:    Mahmoud_Labib
+*
+********************************************************************************/
 
+/*------------------------------------------------------------------------------
+ *                                 INCLUDES
+ *------------------------------------------------------------------------------*/
 #include "stopwatch.h"
 #include "../EHAL/7-Segment/seven_segment.h"
 #include <util/delay.h>
 
+/*------------------------------------------------------------------------------
+ *                          Definitions & Global Variable
+ *------------------------------------------------------------------------------*/
 #define DELAY 2
 extern uint8 volatile interruptMilliSecondFlag;
-uint8 millicounter=0;
 uint8 volatile millisecondsCount=0;
 uint8 volatile secondsCount=0;
 uint8 volatile minutesCount=0;
 uint8 volatile hoursCount=0;
 
 
-
+/*------------------------------------------------------------------------------
+ *                              Private Function's
+ *------------------------------------------------------------------------------*/
 static void sevenSegmentOnesNum(uint8 num);
 static void sevenSegmentTensNum(uint8 num);
 
+/*------------------------------------------------------------------------------
+ *                             Functions Definitions
+ *------------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------------------
+ [FUNCTION NAME]:stopWatchStart
+ [DISCRIPTION]:	This function is responsible to Start the StopWatch Application
+ [Args]:void
+ [RUTURN]: Void
+ ---------------------------------------------------------------------------------------*/
 void stopWatchStart(void)
 {
 	sevenSegmentMilliSecondsDisplay();
@@ -32,10 +52,12 @@ void stopWatchStart(void)
 }
 
 
-
-
-
-
+/*--------------------------------------------------------------------------------------
+ [FUNCTION NAME]:sevenSegmentMilliSecondsDisplay
+ [DISCRIPTION]:	This function is responsible to count and display the millisecond's on 7-Segment's
+ [Args]:void
+ [RUTURN]: EN_StopWatch_Error_t
+ ---------------------------------------------------------------------------------------*/
 EN_StopWatch_Error_t sevenSegmentMilliSecondsDisplay(void)
 {
 
@@ -69,6 +91,13 @@ EN_StopWatch_Error_t sevenSegmentMilliSecondsDisplay(void)
 	return STOP_WATCH_DONE;
 }
 
+
+/*--------------------------------------------------------------------------------------
+ [FUNCTION NAME]:sevenSegmentSecondsDisplay
+ [DISCRIPTION]:	This function is responsible to count and display the second's on 7-Segment's
+ [Args]:void
+ [RUTURN]: EN_StopWatch_Error_t
+ ---------------------------------------------------------------------------------------*/
 EN_StopWatch_Error_t sevenSegmentSecondsDisplay(void)
 {
 	if(secondsCount == 60)
@@ -93,8 +122,12 @@ EN_StopWatch_Error_t sevenSegmentSecondsDisplay(void)
 }
 
 
-
-
+/*--------------------------------------------------------------------------------------
+ [FUNCTION NAME]:sevenSegmentMinutsDisplay
+ [DISCRIPTION]:	This function is responsible to count and display the minut's on 7-Segment's
+ [Args]:void
+ [RUTURN]: EN_StopWatch_Error_t
+ ---------------------------------------------------------------------------------------*/
 EN_StopWatch_Error_t sevenSegmentMinutsDisplay(void)
 {
 	if(minutesCount == 60)
@@ -105,18 +138,26 @@ EN_StopWatch_Error_t sevenSegmentMinutsDisplay(void)
 
 	//Display The seconds on 7segment
 
-	sevenSegmenD5_EN();
+
 	sevenSegmentOnesNum(minutesCount);
+	sevenSegmenD5_EN();
 	_delay_ms(DELAY);
 
-	sevenSegmenD6_EN();
+
 	sevenSegmentTensNum(minutesCount);
+	sevenSegmenD6_EN();
 	_delay_ms(DELAY);
 
 	return STOP_WATCH_DONE;
 }
 
 
+/*--------------------------------------------------------------------------------------
+ [FUNCTION NAME]:sevenSegmentHoursDisplay
+ [DISCRIPTION]:	This function is responsible to count and display the hours on 7-Segment's
+ [Args]:void
+ [RUTURN]: EN_StopWatch_Error_t
+ ---------------------------------------------------------------------------------------*/
 EN_StopWatch_Error_t sevenSegmentHoursDisplay(void)
 {
 	if(hoursCount == 24)
@@ -126,22 +167,24 @@ EN_StopWatch_Error_t sevenSegmentHoursDisplay(void)
 
 	//Display The seconds on 7segment
 
-	sevenSegmenD7_EN();
+
 	sevenSegmentOnesNum(hoursCount);
+	sevenSegmenD7_EN();
 	_delay_ms(DELAY);
 
-	sevenSegmenD8_EN();
+
 	sevenSegmentTensNum(hoursCount);
+	sevenSegmenD8_EN();
 	_delay_ms(DELAY);
 
 	return STOP_WATCH_DONE;
 }
 
 
-
+/*-------------------------------Private Functions Definitions--------------------------------*/
 void sevenSegmentOnesNum(uint8 num)
 {
-	switch((num % 10))
+	switch((num%10))
 	{
 	case 0:
 		sevenSegmenDisplay(0);
@@ -180,7 +223,7 @@ void sevenSegmentOnesNum(uint8 num)
 
 void sevenSegmentTensNum(uint8 num)
 {
-	switch((num / 10))
+	switch((num/10))
 	{
 	case 0:
 		sevenSegmenDisplay(0);

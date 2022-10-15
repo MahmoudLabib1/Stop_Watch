@@ -1,18 +1,37 @@
-/*
- * Button.c
- *
- *  Created on: Oct 8, 2022
- *      Author: Mahmoud Labib
- */
-
+/*******************************************************************************
+* [FILE NAME]:    Button.c
+*
+* [DATE CREATED]: Oct 22, 2022
+*
+* [DISCRIPTION]:  Source file for implementing the Button Functionality.
+*
+* [AUTHOR(S)]:    Mahmoud_Labib
+*
+********************************************************************************/
+/*------------------------------------------------------------------------------
+ *                                 INCLUDES
+ *------------------------------------------------------------------------------*/
 #include "Button.h"
 #include "../../MCAL/EX_INTERRUPT/ex_interrupt.h"
 #include "../../MCAL/TIMER/timer.h"
 #include <util/delay.h>
 
+/*------------------------------------------------------------------------------
+ *                                  Global Variable
+ *------------------------------------------------------------------------------*/
 extern uint8 volatile pauseFlag;
 extern uint8 volatile continuFlag;
 
+/*------------------------------------------------------------------------------
+ *                            Functions Definitions
+ *------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------------------------
+ [FUNCTION NAME]:buttonInit
+ [DISCRIPTION]:	This function is responsible to Initialized the Button
+ [Args]:void
+ [RUTURN]: Void
+ ---------------------------------------------------------------------------------------*/
 void buttonInit(void)
 {
 
@@ -23,6 +42,12 @@ void buttonInit(void)
 }
 
 
+/*--------------------------------------------------------------------------------------
+ [FUNCTION NAME]:checkButton
+ [DISCRIPTION]:	This function is responsible to check if button Pressed or released
+ [Args]:void
+ [RUTURN]: EN_Button_State_t
+ ---------------------------------------------------------------------------------------*/
 EN_Button_State_t  checkButton(void)
 {
 #if EX_INT0 == ENABLE || EX_INT1 == ENABLE || EX_INT2 == ENABLE

@@ -1,3 +1,17 @@
+/*******************************************************************************
+* [FILE NAME]:    main.c
+*
+* [DATE CREATED]: Oct 15, 2022
+*
+* [DISCRIPTION]:  Stop Watch system
+*
+* [AUTHOR(S)]:    Mahmoud_Labib
+*
+********************************************************************************/
+
+/*------------------------------------------------------------------------------
+ *                                 INCLUDES
+ *------------------------------------------------------------------------------*/
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
@@ -8,13 +22,16 @@
 #include "APP/stopwatch.h"
 #include "EHAL/Button/Button.h"
 
+/*------------------------------------------------------------------------------
+ *                                 Main Function
+ *------------------------------------------------------------------------------*/
 int main()
 {
 	sevenSegmentInit();
-	TIMER_Init();
-	Ex_INT0_SetCallBack(&checkButton);
-	Ex_INT2_SetCallBack(&checkButton);
 	buttonInit();
+	Ex_INT0_SetCallBack((void *)&checkButton);
+	Ex_INT2_SetCallBack((void *)&checkButton);
+	TIMER_Init();
 	sei();
 
 	while(1){
