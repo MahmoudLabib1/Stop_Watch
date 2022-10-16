@@ -15,7 +15,7 @@
 #include "../../MCAL/EX_INTERRUPT/ex_interrupt.h"
 #include "../../MCAL/TIMER/timer.h"
 #include "../../utils/common_macros.h"
-#include <util/delay.h>
+
 
 /*------------------------------------------------------------------------------
  *                                  Global Variable
@@ -54,7 +54,6 @@ EN_Button_State_t  checkButton(void)
 #if EX_INT0 == ENABLE || EX_INT1 == ENABLE || EX_INT2 == ENABLE
 	if(pauseFlag == TRUE )
 	{
-		_delay_ms(3);
 		if(pauseFlag == TRUE)
 		{
 			TIMER_Deinit();
@@ -66,7 +65,6 @@ EN_Button_State_t  checkButton(void)
 
 	if(continuFlag == TRUE )
 	{
-		_delay_ms(3);
 		while(continuFlag == TRUE )
 		{
 			TIMER_Init();
