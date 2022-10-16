@@ -1,19 +1,20 @@
 /*******************************************************************************
-* [FILE NAME]:    Button.c
-*
-* [DATE CREATED]: Oct 22, 2022
-*
-* [DISCRIPTION]:  Source file for implementing the Button Functionality.
-*
-* [AUTHOR(S)]:    Mahmoud_Labib
-*
-********************************************************************************/
+ * [FILE NAME]:    Button.c
+ *
+ * [DATE CREATED]: Oct 22, 2022
+ *
+ * [DISCRIPTION]:  Source file for implementing the Button Functionality.
+ *
+ * [AUTHOR(S)]:    Mahmoud_Labib
+ *
+ ********************************************************************************/
 /*------------------------------------------------------------------------------
  *                                 INCLUDES
  *------------------------------------------------------------------------------*/
 #include "Button.h"
 #include "../../MCAL/EX_INTERRUPT/ex_interrupt.h"
 #include "../../MCAL/TIMER/timer.h"
+#include "../../utils/common_macros.h"
 #include <util/delay.h>
 
 /*------------------------------------------------------------------------------
@@ -53,22 +54,24 @@ EN_Button_State_t  checkButton(void)
 #if EX_INT0 == ENABLE || EX_INT1 == ENABLE || EX_INT2 == ENABLE
 	if(pauseFlag == TRUE )
 	{
-		_delay_ms(30);
-		if(pauseFlag == TRUE )
+		_delay_ms(3);
+		if(pauseFlag == TRUE)
 		{
 			TIMER_Deinit();
 			pauseFlag=FALSE;
+
 			return BUTTON_PRESSED;
 		}
 	}
 
 	if(continuFlag == TRUE )
 	{
-		_delay_ms(30);
-		if(continuFlag == TRUE )
+		_delay_ms(3);
+		while(continuFlag == TRUE )
 		{
 			TIMER_Init();
 			continuFlag=FALSE;
+
 			return BUTTON_PRESSED;
 		}
 

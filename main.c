@@ -30,7 +30,7 @@ int main()
 	sevenSegmentInit();
 	buttonInit();
 	Ex_INT0_SetCallBack((void *)&checkButton);
-	Ex_INT2_SetCallBack((void *)&checkButton);
+	Ex_INT1_SetCallBack((void *)&checkButton);
 	TIMER_Init();
 	sei();
 

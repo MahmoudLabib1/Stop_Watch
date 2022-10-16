@@ -27,8 +27,8 @@
  *               EX_INT1   DISABLE
  */
 #define EX_INT0          ENABLE
-#define EX_INT1          DISABLE
-#define EX_INT2          ENABLE
+#define EX_INT1          ENABLE
+#define EX_INT2          DISABLE
 
 /*[Description]: Choose the external Interrupt0 trigger sense
  *[INT0_Sense_Types]:

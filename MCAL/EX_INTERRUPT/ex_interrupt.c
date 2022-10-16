@@ -13,6 +13,7 @@
  *                                  INCLUDES
  *******************************************************************************/
 #include "../../utils/common_macros.h"
+#include "../GPIO/GPIO.h"
 #include "ex_interrupt.h"
 #include <avr/interrupt.h>
 /*******************************************************************************
@@ -41,6 +42,7 @@ ISR(INT0_vect){
 	if(g_Ptr_To_Fun_INT0 != NULL){
 		(*g_Ptr_To_Fun_INT0)();
 	}
+
 }
 /*******************************************************************************
  *                                 INT1_ISR
@@ -50,7 +52,7 @@ ISR(INT0_vect){
  */
 
 ISR(INT1_vect){
-
+	continuFlag=TRUE;
 	if(g_Ptr_To_Fun_INT1 != NULL){
 		(*g_Ptr_To_Fun_INT1)();
 	}
@@ -63,7 +65,8 @@ ISR(INT1_vect){
  */
 
 ISR(INT2_vect){
-	continuFlag=TRUE;
+
+
 	if(g_Ptr_To_Fun_INT2 != NULL){
 		(*g_Ptr_To_Fun_INT2)();
 	}
@@ -112,27 +115,29 @@ void Ex_INT_Init(void){
 	GPIO_WritePin(PORTD_ID, PIN2_ID, logic_high);//to activate pull up resistor
 #if INT0_Sense_Selector == 	INT0_Sense_Low_Level_Mask
 	MCUCR =(MCUCR & INT0_Sense_CLR_Mask);
-	CLEAR_BIT(MCUCR,ISC10);
-	CLEAR_BIT(MCUCR,ISC11);
+	CLEAR_BIT(MCUCR,ISC01);
+	CLEAR_BIT(MCUCR,ISC00);
 #elif INT0_Sense_Selector == INT0_Sense_Any_Logical_change_Mask
 	MCUCR =(MCUCR & INT0_Sense_CLR_Mask);
-	SET_BIT(MCUCR,ISC10);
-	CLEAR_BIT(MCUCR,ISC11);
+	SET_BIT(MCUCR,ISC00);
+	CLEAR_BIT(MCUCR,ISC01);
 
 #elif  INT0_Sense_Selector == INT0_Sense_Falling_Edge_Mask
 	MCUCR =(MCUCR & INT0_Sense_CLR_Mask);
-	SET_BIT(MCUCR,ISC11);
-	CLEAR_BIT(MCUCR,ISC10);
+	SET_BIT(MCUCR,ISC01);
+	CLEAR_BIT(MCUCR,ISC00);
 
 #elif  INT0_Sense_Selector == INT0_Sense_Rising_Edge_Mask
 	MCUCR =(MCUCR & INT0_Sense_CLR_Mask);
-	SET_BIT(MCUCR,ISC10);
-	SET_BIT(MCUCR,ISC11);
+	SET_BIT(MCUCR,ISC00);
+	SET_BIT(MCUCR,ISC01);
 #endif
 #endif
 
 #if EX_INT1 == ENABLE
 	SET_BIT(GICR,INT1); //Enable External Enterrupt1
+	GPIO_SetPinDir(PORTD_ID, PIN3_ID, pin_input);
+	GPIO_WritePin(PORTD_ID, PIN3_ID, logic_high);//to activate pull up resistor
 #if INT1_Sense_Selector == 	INT1_Sense_Low_Level_Mask
 	MCUCR =(MCUCR & INT1_Sense_CLR_Mask);
 #elif INT1_Sense_Selector == INT1_Sense_Any_Logical_change_Mask
@@ -151,6 +156,8 @@ void Ex_INT_Init(void){
 
 #if EX_INT2 == ENABLE
 	SET_BIT(GICR,INT2); //Enable External Enterrupt1
+	GPIO_SetPinDir(PORTB_ID, PIN2_ID,pin_input );
+	GPIO_WritePin(PORTB_ID, PIN2_ID, logic_high);//to activate pull up resistor
 #if INT2_Sense_Selector == INT2_Sense_Falling_Edge_Mask
 	MCUCSR =(MCUCSR & INT2_Sense_CLR_Mask);
 
